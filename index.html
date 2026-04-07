@@ -94,11 +94,7 @@
                 <span class="hf-line hf-line2">Safuvan</span>
             </h1>
             <div class="hf-sub">
-                <span class="hf-sub-item">Windows · Linux · macOS</span>
-                <span class="hf-divider">—</span>
-                <span class="hf-sub-item">Microsoft 365 · Azure · AWS</span>
-                <span class="hf-divider">—</span>
-                <span class="hf-sub-item">Active Directory · Networking</span>
+                <span class="hf-sub-item hf-rotate" id="hfRotate"></span>
             </div>
         </div>
 
@@ -133,15 +129,46 @@
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        I'm a system administrator and technical support specialist with hands-on experience across Windows, Linux, and macOS environments. 
-                        I work comfortably with Microsoft 365, Active Directory, Azure AD, and core networking services like DNS, DHCP, VPN, and secure remote access.
+                        I'm a sysadmin who built a thermal-imaging drone from scratch for my engineering thesis, moved across the world to Canada, 
+                        and now I'm looking to break into the MSP / IT support space in Southwestern Ontario. 
+                        I've administered Windows Server environments, managed Active Directory and M365 tenants, 
+                        and debugged networking issues at 2 AM — the usual.
                     </p>
                     <p>
-                        In my recent role at Impreza Technologies, I administered servers and endpoints, managed user access and security, 
-                        monitored systems, and helped keep services stable and documented. I pair that technical work with strong communication, 
-                        structured troubleshooting, and a calm approach under pressure—whether it's an incident, a ticket queue, or a production shift.
+                        Outside of tech, I'm a cinema obsessive (<em>Interstellar</em> is the GOAT, don't argue), 
+                        an amateur photographer and videographer with a long-term goal of filming in every country on earth, 
+                        and I spend way too much time reading about geopolitics and space exploration. 
+                        Hans Zimmer soundtracks are my deployment music.
                     </p>
+                </div>
 
+                <!-- Personal DNA strip -->
+                <div class="about-dna" id="aboutDna">
+                    <div class="dna-item">
+                        <span class="dna-icon">🎬</span>
+                        <span class="dna-label">Interstellar</span>
+                        <span class="dna-sub">all-time favourite</span>
+                    </div>
+                    <div class="dna-item">
+                        <span class="dna-icon">🎵</span>
+                        <span class="dna-label">Hans Zimmer</span>
+                        <span class="dna-sub">deployment music</span>
+                    </div>
+                    <div class="dna-item">
+                        <span class="dna-icon">📸</span>
+                        <span class="dna-label">Every Country</span>
+                        <span class="dna-sub">on video — the goal</span>
+                    </div>
+                    <div class="dna-item">
+                        <span class="dna-icon">⚽</span>
+                        <span class="dna-label">Man United</span>
+                        <span class="dna-sub">pain is loyalty</span>
+                    </div>
+                    <div class="dna-item">
+                        <span class="dna-icon">🌍</span>
+                        <span class="dna-label">Geopolitics</span>
+                        <span class="dna-sub">maps &amp; borders nerd</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -211,111 +238,38 @@
     </div>
 
 
-    <!-- Skills Section -->
+    <!-- Skills Section — Interactive Terminal -->
     <section id="skills" class="skills">
         <div class="container">
             <span class="section-label">// skills</span>
             <h2 class="section-title">Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <span class="category-icon">💻</span>
-                        Programming
-                    </h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">HTML</span>
-                        <span class="skill-tag">CSS</span>
-                    </div>
+            <p class="terminal-intro">This isn't a list. Type a command below — or click one to try it.</p>
+
+            <div class="live-terminal" id="liveTerminal">
+                <div class="terminal-header">
+                    <span class="t-dot t-red"></span>
+                    <span class="t-dot t-yellow"></span>
+                    <span class="t-dot t-green"></span>
+                    <span class="t-title">safuvan@portfolio ~ $</span>
                 </div>
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <span class="category-icon">☁️</span>
-                        Cloud & DevOps
-                    </h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">AWS (EC2, S3, IAM, Lambda)</span>
-                        <span class="skill-tag">GitHub Actions</span>
-                        <span class="skill-tag">Azure Fundamentals</span>
-                        <span class="skill-tag">Docker</span>
-                    </div>
+                <div class="terminal-body" id="liveTermBody"></div>
+                <div class="terminal-input-row">
+                    <span class="t-prompt-live">$&nbsp;</span>
+                    <input type="text" id="termInput" class="terminal-input" placeholder="try: help, skills, whoami, neofetch, projects, ping..." autocomplete="off" spellcheck="false" />
                 </div>
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <span class="category-icon">🔐</span>
-                        Access Management
-                    </h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Microsoft 365 Admin Center</span>
-                        <span class="skill-tag">Active Directory</span>
-                        <span class="skill-tag">Azure AD</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <span class="category-icon">📊</span>
-                        Data Analysis & BI
-                    </h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Excel (Pivot Tables, Power Query)</span>
-                        <span class="skill-tag">Power BI (DAX)</span>
-                        <span class="skill-tag">Tableau</span>
-                        <span class="skill-tag">Pandas, NumPy, Matplotlib</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <span class="category-icon">🌐</span>
-                        Networking & OS
-                    </h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Windows 10/11</span>
-                        <span class="skill-tag">Linux (Ubuntu CLI)</span>
-                        <span class="skill-tag">macOS Support</span>
-                        <span class="skill-tag">TCP/IP, DHCP, DNS</span>
-                        <span class="skill-tag">VPN Setup</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <span class="category-icon">🗄️</span>
-                        Databases
-                    </h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">PostgreSQL</span>
-                        <span class="skill-tag">MongoDB</span>
-                        <span class="skill-tag">SQLite</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <span class="category-icon">🛠️</span>
-                        Tools
-                    </h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">VS Code</span>
-                        <span class="skill-tag">GitHub</span>
-                        <span class="skill-tag">JIRA</span>
-                        <span class="skill-tag">ServiceNow</span>
-                        <span class="skill-tag">Postman</span>
-                        <span class="skill-tag">Anaconda</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <span class="category-icon">✨</span>
-                        Soft Skills
-                    </h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Fast Learner</span>
-                        <span class="skill-tag">Multitasking</span>
-                        <span class="skill-tag">Clear Communication</span>
-                        <span class="skill-tag">Problem-Solving</span>
-                    </div>
-                </div>
+            </div>
+
+            <div class="terminal-suggestions" id="termSuggestions">
+                <button class="term-sug" data-cmd="help">help</button>
+                <button class="term-sug" data-cmd="neofetch">neofetch</button>
+                <button class="term-sug" data-cmd="skills --cloud">skills --cloud</button>
+                <button class="term-sug" data-cmd="skills --networking">skills --networking</button>
+                <button class="term-sug" data-cmd="certifications">certifications</button>
+                <button class="term-sug" data-cmd="whoami">whoami</button>
+                <button class="term-sug" data-cmd="projects">projects</button>
+                <button class="term-sug" data-cmd="ping google.com">ping google.com</button>
+                <button class="term-sug" data-cmd="uptime">uptime</button>
+                <button class="term-sug" data-cmd="man safuvan">man safuvan</button>
             </div>
         </div>
     </section>
@@ -443,32 +397,32 @@
                         <span>interactive story inside</span>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card subnet-card" id="subnetCard">
                     <div class="project-header">
-                        <div class="project-icon">📈</div>
+                        <div class="project-icon">🔢</div>
                         <div class="project-links">
-                            <!-- Placeholder for future repo link -->
+                            <span class="project-link" style="font-size:0.7rem;color:var(--tx-3);">live tool ↓</span>
                         </div>
                     </div>
-                    <h3 class="project-title">System Log Monitoring & Analysis Mini Project</h3>
+                    <h3 class="project-title">Subnet Calculator</h3>
                     <p class="project-description">
-                        Built Python scripts to parse Linux system and application log files, identify recurring errors, and surface performance issues. 
-                        Designed summarized outputs to highlight frequent failure points and trends that are useful for troubleshooting.
+                        A working CIDR/subnet calculator built into this page. Enter an IP and CIDR — 
+                        get network address, broadcast, usable range, and host count instantly.
                     </p>
-                    <div class="project-features">
-                        <h4>Key Contributions:</h4>
-                        <ul>
-                            <li>Parsed CSV and text log files to extract timestamps, severities, sources, and error messages</li>
-                            <li>Aggregated and counted recurring issues to spot patterns and potential root causes</li>
-                            <li>Generated concise summaries to support documentation and incident reports</li>
-                            <li>Strengthened understanding of troubleshooting workflows and root cause analysis</li>
-                        </ul>
+                    <div class="subnet-tool">
+                        <div class="subnet-input-row">
+                            <input type="text" id="subnetIp" class="subnet-input" placeholder="192.168.1.0" value="192.168.1.0" />
+                            <span class="subnet-slash">/</span>
+                            <input type="number" id="subnetCidr" class="subnet-input subnet-cidr" placeholder="24" value="24" min="0" max="32" />
+                            <button class="subnet-calc-btn" id="subnetCalcBtn">Calc</button>
+                        </div>
+                        <div class="subnet-results" id="subnetResults"></div>
                     </div>
                     <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Linux</span>
-                        <span class="tech-tag">Log Parsing</span>
-                        <span class="tech-tag">CSV</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Networking</span>
+                        <span class="tech-tag">CIDR</span>
+                        <span class="tech-tag">Binary Math</span>
                     </div>
                 </div>
             </div>
@@ -551,8 +505,8 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Muhammed Safuvan. All rights reserved.</p>
-            <p class="footer-note">Built with passion for technology and problem-solving</p>
+            <p>&copy; 2025 Muhammed Safuvan</p>
+            <p class="footer-note">Kochi → London, ON · Still building.</p>
         </div>
     </footer>
 

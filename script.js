@@ -573,6 +573,360 @@ function initCustomCursor() {
 }
 
 // ============================================================
+//  HERO TEXT ROTATOR
+// ============================================================
+function initHeroRotator() {
+    const el = document.getElementById('hfRotate');
+    if (!el) return;
+    const lines = [
+        'Built a drone. Moved continents. Now debugging yours.',
+        'Active Directory · M365 · Azure · Networking',
+        'Thermal-imaging drone engineer turned sysadmin.',
+        'CompTIA A+ · AWS · Python · Linux CLI',
+        'From Kerala to Canada — same drive, new latitude.',
+        'Your next IT hire is scrolling below.',
+    ];
+    let idx = 0;
+    el.textContent = lines[0];
+    setInterval(() => {
+        el.classList.add('out');
+        setTimeout(() => {
+            idx = (idx + 1) % lines.length;
+            el.textContent = lines[idx];
+            el.classList.remove('out');
+        }, 350);
+    }, 4000);
+}
+
+// ============================================================
+//  LIVE INTERACTIVE TERMINAL
+// ============================================================
+function initLiveTerminal() {
+    const body = document.getElementById('liveTermBody');
+    const input = document.getElementById('termInput');
+    const suggestions = document.getElementById('termSuggestions');
+    if (!body || !input) return;
+
+    const COMMANDS = {
+        help: () => [
+            { t:'heading', s:'Available commands:' },
+            { t:'info', s:'  help              — show this menu' },
+            { t:'info', s:'  whoami            — who is this guy?' },
+            { t:'info', s:'  neofetch          — system info (the cool way)' },
+            { t:'info', s:'  skills            — full skill dump' },
+            { t:'info', s:'  skills --cloud    — cloud & devops stack' },
+            { t:'info', s:'  skills --networking — networking skills' },
+            { t:'info', s:'  skills --tools    — tools I use daily' },
+            { t:'info', s:'  certifications    — certs and credentials' },
+            { t:'info', s:'  projects          — featured builds' },
+            { t:'info', s:'  experience        — work history' },
+            { t:'info', s:'  education         — degrees & programs' },
+            { t:'info', s:'  contact           — reach me' },
+            { t:'info', s:'  ping <host>       — try it' },
+            { t:'info', s:'  uptime            — how long I\'ve been at this' },
+            { t:'info', s:'  man safuvan       — the manual' },
+            { t:'info', s:'  clear             — wipe the screen' },
+            { t:'info', s:'  sudo hire safuvan — you know you want to' },
+        ],
+        whoami: () => [
+            { t:'out', s:'Muhammed Safuvan' },
+            { t:'info', s:'System Administrator & IT Support Specialist' },
+            { t:'info', s:'Based in London, ON, Canada' },
+            { t:'info', s:'B.Tech ECE (CUSAT) → PGC BISA (Fanshawe)' },
+            { t:'dim', s:'Interests: cinema, geopolitics, photography, space' },
+        ],
+        neofetch: () => [
+            { t:'neofetch', s:'' }
+        ],
+        skills: () => [
+            { t:'heading', s:'All Technical Skills:' },
+            { t:'table-row', s:'<span class="col-label">Operating Systems</span> Windows Server, Win 10/11, Ubuntu, macOS' },
+            { t:'table-row', s:'<span class="col-label">Identity & Access</span> Active Directory, Azure AD, M365 Admin' },
+            { t:'table-row', s:'<span class="col-label">Cloud</span> AWS (EC2, S3, IAM, Lambda), Azure, Docker' },
+            { t:'table-row', s:'<span class="col-label">Networking</span> TCP/IP, DNS, DHCP, VPN, LAN/Wi-Fi' },
+            { t:'table-row', s:'<span class="col-label">Scripting</span> Python, Bash, PowerShell, JavaScript' },
+            { t:'table-row', s:'<span class="col-label">Data & BI</span> SQL, Power BI (DAX), Excel, Pandas' },
+            { t:'table-row', s:'<span class="col-label">Databases</span> MySQL, PostgreSQL, MongoDB, SQLite' },
+            { t:'table-row', s:'<span class="col-label">Tools</span> VS Code, GitHub, JIRA, ServiceNow, Postman' },
+            { t:'dim', s:'Use: skills --cloud, skills --networking, skills --tools' },
+        ],
+        'skills --cloud': () => [
+            { t:'heading', s:'Cloud & DevOps:' },
+            { t:'out', s:'AWS — EC2, S3, IAM, Lambda, CloudWatch' },
+            { t:'out', s:'Azure — Fundamentals, Azure AD, basic VM provisioning' },
+            { t:'out', s:'Docker — containerisation, Dockerfile, docker-compose' },
+            { t:'out', s:'GitHub Actions — CI/CD pipelines' },
+            { t:'out', s:'Infrastructure monitoring & log analysis' },
+        ],
+        'skills --networking': () => [
+            { t:'heading', s:'Networking:' },
+            { t:'out', s:'TCP/IP stack — deep understanding of layers' },
+            { t:'out', s:'DNS — record types, resolution, troubleshooting' },
+            { t:'out', s:'DHCP — scopes, reservations, relay agents' },
+            { t:'out', s:'VPN — site-to-site, remote access, split tunnel' },
+            { t:'out', s:'LAN/WLAN — switching, VLANs, wireless config' },
+            { t:'out', s:'Subnetting — CIDR, VLSM, supernetting' },
+            { t:'dim', s:'Check the Subnet Calculator in Projects ↓' },
+        ],
+        'skills --tools': () => [
+            { t:'heading', s:'Daily Tools:' },
+            { t:'out', s:'VS Code · GitHub · JIRA · ServiceNow' },
+            { t:'out', s:'Postman · Wireshark · PuTTY · WinSCP' },
+            { t:'out', s:'PowerShell · Bash · Python REPL' },
+            { t:'out', s:'RDP · SSH · Remote Desktop Manager' },
+        ],
+        certifications: () => [
+            { t:'heading', s:'Certifications:' },
+            { t:'out', s:'✓ CompTIA A+ (Core 1 passed, Core 2 in progress)' },
+            { t:'out', s:'✓ Fanshawe PGC — Business & Information Systems Architecture' },
+            { t:'out', s:'✓ B.Tech ECE — CUSAT, Kochi' },
+            { t:'dim', s:'AWS Cloud Practitioner — next target' },
+        ],
+        projects: () => [
+            { t:'heading', s:'Featured Projects:' },
+            { t:'out', s:'🔒 Safe Surf — Chrome extension that reads T&C so you don\'t have to' },
+            { t:'out', s:'🛰️ Thermal Imaging Drone — built from scratch, Python + thermal sensor' },
+            { t:'out', s:'🔢 Subnet Calculator — live tool embedded in this site' },
+            { t:'dim', s:'Scroll down to Projects section for details ↓' },
+        ],
+        experience: () => [
+            { t:'heading', s:'Work History:' },
+            { t:'table-row', s:'<span class="col-label">Impreza Technologies</span> System Administrator · 2022–2023' },
+            { t:'table-row', s:'<span class="col-label">Osmow\'s</span> Supervisor · 2023–Present' },
+            { t:'table-row', s:'<span class="col-label">Dr. Oetker</span> Machine Operator · 2023' },
+        ],
+        education: () => [
+            { t:'heading', s:'Education:' },
+            { t:'out', s:'🎓 PGC Business & Information Systems Architecture — Fanshawe College (2023–2025)' },
+            { t:'out', s:'🎓 B.Tech Electronics & Communication Engineering — CUSAT (2018–2022)' },
+        ],
+        contact: () => [
+            { t:'heading', s:'Reach me:' },
+            { t:'out', s:'📧 muhammedsafuvan1999@gmail.com' },
+            { t:'out', s:'📱 +1 (226) 977-8208' },
+            { t:'out', s:'📍 London, ON, Canada' },
+            { t:'out', s:'🔗 linkedin.com/in/muhammed-safuvan-b81312189' },
+        ],
+        uptime: () => {
+            const born = new Date(1999, 2, 8);
+            const now = new Date();
+            const days = Math.floor((now - born) / 86400000);
+            const years = Math.floor(days / 365.25);
+            return [
+                { t:'out', s:`up ${days} days (${years} years)` },
+                { t:'info', s:`load average: coffee 3.8, curiosity 4.2, ambition 5.0` },
+                { t:'dim', s:`last reboot: moved to Canada, 2023` },
+            ];
+        },
+        'man safuvan': () => [
+            { t:'heading', s:'SAFUVAN(1)                   User Manual                   SAFUVAN(1)' },
+            { t:'info', s:'' },
+            { t:'info', s:'NAME' },
+            { t:'out', s:'    safuvan — sysadmin, drone builder, cinema nerd' },
+            { t:'info', s:'' },
+            { t:'info', s:'SYNOPSIS' },
+            { t:'out', s:'    safuvan [--hire] [--coffee] [--talk-interstellar]' },
+            { t:'info', s:'' },
+            { t:'info', s:'DESCRIPTION' },
+            { t:'out', s:'    Indian-born, Canada-based IT professional who built' },
+            { t:'out', s:'    a thermal imaging drone from scratch and now wants' },
+            { t:'out', s:'    to fix your Active Directory problems.' },
+            { t:'info', s:'' },
+            { t:'info', s:'OPTIONS' },
+            { t:'out', s:'    --hire          Strongly recommended' },
+            { t:'out', s:'    --coffee        Always accepted' },
+            { t:'out', s:'    --talk-interstellar  Will not shut up' },
+            { t:'info', s:'' },
+            { t:'info', s:'SEE ALSO' },
+            { t:'out', s:'    resume(1), linkedin(1), email(1)' },
+        ],
+        'sudo hire safuvan': () => [
+            { t:'out', s:'[sudo] verifying intent...' },
+            { t:'out', s:'✓ Excellent decision.' },
+            { t:'out', s:'✓ Deploying Safuvan to your IT team...' },
+            { t:'out', s:'✓ Installation complete. Productivity increased by ∞%.' },
+            { t:'info', s:'' },
+            { t:'info', s:'📧 muhammedsafuvan1999@gmail.com to make it official.' },
+        ],
+        clear: () => 'CLEAR',
+    };
+
+    // Ping handler
+    function handlePing(host) {
+        const ms = (Math.random() * 30 + 5).toFixed(1);
+        const ms2 = (Math.random() * 30 + 5).toFixed(1);
+        const ms3 = (Math.random() * 30 + 5).toFixed(1);
+        return [
+            { t:'out', s:`PING ${host} (${Math.floor(Math.random()*200)+10}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}): 56 data bytes` },
+            { t:'out', s:`64 bytes from ${host}: icmp_seq=0 ttl=64 time=${ms} ms` },
+            { t:'out', s:`64 bytes from ${host}: icmp_seq=1 ttl=64 time=${ms2} ms` },
+            { t:'out', s:`64 bytes from ${host}: icmp_seq=2 ttl=64 time=${ms3} ms` },
+            { t:'dim', s:`--- ${host} ping statistics --- 3 packets transmitted, 3 received, 0.0% packet loss` },
+        ];
+    }
+
+    function addLines(lines) {
+        lines.forEach((l, i) => {
+            setTimeout(() => {
+                if (l.t === 'neofetch') {
+                    addNeofetch();
+                } else {
+                    const div = document.createElement('div');
+                    div.className = 'term-line ' + l.t;
+                    div.innerHTML = l.s;
+                    body.appendChild(div);
+                }
+                body.scrollTop = body.scrollHeight;
+            }, i * 35);
+        });
+    }
+
+    function addNeofetch() {
+        const container = document.createElement('div');
+        container.className = 'neofetch-box';
+        const ascii = `   _____ 
+  / ____|
+ | (___  
+  \\___ \\ 
+  ____) |
+ |_____/ `;
+        const born = new Date(1999, 2, 8);
+        const days = Math.floor((new Date() - born) / 86400000);
+        container.innerHTML = `
+            <div class="neofetch-ascii">${ascii}</div>
+            <div class="neofetch-info">
+                <span class="nf-label">safuvan</span><span class="nf-sep">@</span>portfolio<br>
+                ──────────────────<br>
+                <span class="nf-label">OS</span><span class="nf-sep">:</span> Ambition/2.0 LTS<br>
+                <span class="nf-label">Host</span><span class="nf-sep">:</span> London, ON, Canada<br>
+                <span class="nf-label">Kernel</span><span class="nf-sep">:</span> B.Tech ECE + PGC BISA<br>
+                <span class="nf-label">Uptime</span><span class="nf-sep">:</span> ${days} days<br>
+                <span class="nf-label">Shell</span><span class="nf-sep">:</span> bash / powershell / python<br>
+                <span class="nf-label">Resolution</span><span class="nf-sep">:</span> ${window.innerWidth}x${window.innerHeight}<br>
+                <span class="nf-label">WM</span><span class="nf-sep">:</span> Active Directory<br>
+                <span class="nf-label">Terminal</span><span class="nf-sep">:</span> VS Code + PuTTY<br>
+                <span class="nf-label">CPU</span><span class="nf-sep">:</span> Caffeinated (3.8 GHz)<br>
+                <span class="nf-label">Memory</span><span class="nf-sep">:</span> 42 tabs / ∞<br>
+                <br>
+                <div class="neofetch-bar">
+                    <span style="background:#f87171"></span><span style="background:#fb923c"></span><span style="background:#fbbf24"></span><span style="background:#4ade80"></span><span style="background:#60a5fa"></span><span style="background:#a78bfa"></span><span style="background:#f472b6"></span><span style="background:#e5e7eb"></span>
+                </div>
+            </div>`;
+        body.appendChild(container);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    function execute(raw) {
+        const cmd = raw.trim().toLowerCase();
+        if (!cmd) return;
+
+        // Show the command
+        const cmdLine = document.createElement('div');
+        cmdLine.className = 'term-line cmd';
+        cmdLine.innerHTML = `<span class="t-prompt">$ </span>${raw.trim()}`;
+        body.appendChild(cmdLine);
+
+        if (cmd === 'clear') {
+            body.innerHTML = '';
+            return;
+        }
+
+        if (cmd.startsWith('ping ')) {
+            const host = raw.trim().slice(5).trim() || 'localhost';
+            addLines(handlePing(host));
+            return;
+        }
+
+        const handler = COMMANDS[cmd];
+        if (handler) {
+            const result = handler();
+            if (result === 'CLEAR') { body.innerHTML = ''; return; }
+            addLines(result);
+        } else {
+            addLines([{ t:'err', s:`command not found: ${raw.trim()}. Type 'help' for available commands.` }]);
+        }
+    }
+
+    input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+            execute(input.value);
+            input.value = '';
+            playSound('click');
+        }
+    });
+
+    if (suggestions) {
+        suggestions.querySelectorAll('.term-sug').forEach(btn => {
+            btn.addEventListener('click', () => {
+                execute(btn.dataset.cmd);
+                playSound('click');
+            });
+        });
+    }
+
+    // Auto-run help on first view
+    const termObs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+            termObs.disconnect();
+            setTimeout(() => execute('neofetch'), 400);
+        }
+    }, { threshold: 0.3 });
+    const termSection = document.getElementById('liveTerminal');
+    if (termSection) termObs.observe(termSection);
+}
+
+// ============================================================
+//  SUBNET CALCULATOR
+// ============================================================
+function initSubnetCalc() {
+    const ipInput = document.getElementById('subnetIp');
+    const cidrInput = document.getElementById('subnetCidr');
+    const btn = document.getElementById('subnetCalcBtn');
+    const results = document.getElementById('subnetResults');
+    if (!ipInput || !btn || !results) return;
+
+    function ipToNum(ip) {
+        const parts = ip.split('.').map(Number);
+        return ((parts[0] << 24) | (parts[1] << 16) | (parts[2] << 8) | parts[3]) >>> 0;
+    }
+    function numToIp(n) {
+        return [(n >>> 24) & 255, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join('.');
+    }
+
+    function calc() {
+        const ip = ipInput.value.trim();
+        const cidr = parseInt(cidrInput.value, 10);
+        if (!/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ip) || isNaN(cidr) || cidr < 0 || cidr > 32) {
+            results.innerHTML = '<span style="color:#f87171">Invalid input. Use format: 192.168.1.0 / 24</span>';
+            return;
+        }
+        const ipNum = ipToNum(ip);
+        const mask = cidr === 0 ? 0 : (0xFFFFFFFF << (32 - cidr)) >>> 0;
+        const network = (ipNum & mask) >>> 0;
+        const broadcast = (network | (~mask >>> 0)) >>> 0;
+        const hosts = cidr >= 31 ? (cidr === 32 ? 1 : 2) : Math.pow(2, 32 - cidr) - 2;
+        const firstHost = cidr >= 31 ? network : network + 1;
+        const lastHost = cidr >= 31 ? broadcast : broadcast - 1;
+
+        results.innerHTML = `
+            <div><span class="sr-label">Network:</span> ${numToIp(network)}/${cidr}</div>
+            <div><span class="sr-label">Subnet Mask:</span> ${numToIp(mask)}</div>
+            <div><span class="sr-label">Broadcast:</span> ${numToIp(broadcast)}</div>
+            <div><span class="sr-label">Usable Range:</span> ${numToIp(firstHost)} — ${numToIp(lastHost)}</div>
+            <div><span class="sr-label">Total Hosts:</span> ${hosts.toLocaleString()}</div>
+            <div><span class="sr-label">Wildcard:</span> ${numToIp(~mask >>> 0)}</div>`;
+        playSound('click');
+    }
+
+    btn.addEventListener('click', calc);
+    cidrInput.addEventListener('keydown', e => { if (e.key === 'Enter') calc(); });
+    ipInput.addEventListener('keydown', e => { if (e.key === 'Enter') calc(); });
+
+    // Auto-calc on load
+    calc();
+}
+
+// ============================================================
 //  BOOT
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -601,6 +955,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initClock();
     initLenis();
     initJourney();
+    initHeroRotator();
+    initLiveTerminal();
+    initSubnetCalc();
 });
 
 // ============================================================
