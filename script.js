@@ -227,67 +227,12 @@ function initParticles() {
 // ============================================================
 //  SKILL CHARGE-UP
 // ============================================================
-function initSkillChargeUp() {
-    const tags = document.querySelectorAll('.skill-tag');
-    tags.forEach(tag => tag.classList.add('skill-tag-chargeable'));
-    const obs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const tag = entry.target;
-                setTimeout(() => tag.classList.add('charged'), parseFloat(tag.dataset.delay || 0));
-                obs.unobserve(tag);
-            }
-        });
-    }, { threshold: 0.3 });
-    tags.forEach((tag, i) => { tag.dataset.delay = (i % 6) * 80; obs.observe(tag); });
-    tags.forEach(tag => tag.addEventListener('mouseenter', () => playSound('hover')));
-}
+// [REMOVED] Skill charge-up animation — unnecessary with terminal-only approach
 
 // ============================================================
 //  TERMINAL BLOCK
 // ============================================================
-function initTerminal() {
-    const skillsSection = document.querySelector('#skills .container');
-    if (!skillsSection) return;
-    const terminal = document.createElement('div');
-    terminal.className = 'terminal-block';
-    terminal.innerHTML = '<div class="terminal-header"><span class="t-dot t-red"></span><span class="t-dot t-yellow"></span><span class="t-dot t-green"></span><span class="t-title">safuvan@portfolio:~$</span></div><div class="terminal-body" id="terminalBody"></div>';
-    skillsSection.appendChild(terminal);
-    const lines = [
-        { text: 'whoami', type: 'cmd' },
-        { text: 'Muhammed Safuvan — System Administrator & IT Support Specialist', type: 'out' },
-        { text: 'ls skills/', type: 'cmd' },
-        { text: 'Python  JavaScript  SQL  AWS  Docker  Azure  Active-Directory  Linux  PowerBI', type: 'out' },
-        { text: 'cat certifications.txt', type: 'cmd' },
-        { text: 'AWS Cloud Practitioner (in progress) | Azure Fundamentals | Fanshawe PGC', type: 'out' },
-        { text: 'ping future-employer.com', type: 'cmd' },
-        { text: '64 bytes from future-employer.com: icmp_seq=1 ttl=64 time=0.1ms ✓', type: 'out' },
-        { text: 'echo "Hire me?"', type: 'cmd' },
-        { text: 'Yes. Absolutely.', type: 'out' },
-    ];
-    const body = document.getElementById('terminalBody');
-    let lineIdx = 0;
-    const termObs = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) { termObs.disconnect(); typeLines(); }
-    }, { threshold: 0.4 });
-    termObs.observe(terminal);
-    function typeLines() {
-        if (lineIdx >= lines.length) return;
-        const { text, type } = lines[lineIdx++];
-        const row = document.createElement('div');
-        row.className = 't-line t-' + type;
-        row.innerHTML = type === 'cmd' ? '<span class="t-prompt">$ </span><span class="t-content"></span>' : '<span class="t-content"></span>';
-        body.appendChild(row);
-        const content = row.querySelector('.t-content');
-        let ci = 0;
-        const speed = type === 'cmd' ? 38 : 12;
-        const typer = setInterval(() => {
-            content.textContent += text[ci++];
-            body.scrollTop = body.scrollHeight;
-            if (ci >= text.length) { clearInterval(typer); setTimeout(typeLines, type === 'cmd' ? 300 : 180); }
-        }, speed);
-    }
-}
+// [REMOVED] Auto-typing terminal — replaced by live interactive terminal only
 
 // ============================================================
 //  MATRIX EMAIL DECODE
@@ -319,78 +264,6 @@ function initMatrixEmail() {
     });
 }
 
-// ============================================================
-//  CINEMATIC INTRO
-// ============================================================
-function initIntro() {
-    const intro     = document.getElementById('intro');
-    if (!intro) return;
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) { intro.remove(); return; }
-    // On mobile — CSS handles the delays, just remove the intro
-    if (window.innerWidth < 768) {
-        intro.remove();
-        return;
-    }
-
-    const eyebrow   = document.getElementById('introEyebrow');
-    const nameEl    = document.getElementById('introName');
-    const subEl     = document.getElementById('introSub');
-    const barEl     = document.getElementById('introBar');
-
-    const FULL_NAME = 'Muhammed Safuvan';
-    const EYEBROW   = 'portfolio.init()';
-    const SUB_TEXT  = 'sys.admin  ·  cloud  ·  it.support';
-
-    // Phase 1 — eyebrow types (0.5s delay already via CSS)
-    // Phase 2 — name types character by character starting at 0.75s
-    // Phase 3 — sub fades in at 1.7s (CSS)
-    // Phase 4 — bar fills 1.8–2.8s (CSS)
-    // Phase 5 — hold, then wipe out at ~3.2s
-
-    let started = false;
-    function startSequence() {
-        if (started) return;
-        started = true;
-
-        // Type eyebrow
-        let ei = 0;
-        const eyeTimer = setInterval(() => {
-            eyebrow.textContent = EYEBROW.slice(0, ++ei);
-            if (ei >= EYEBROW.length) clearInterval(eyeTimer);
-        }, 55);
-
-        // Type name starting at 720ms
-        setTimeout(() => {
-            let ni = 0;
-            const nameTimer = setInterval(() => {
-                nameEl.textContent = FULL_NAME.slice(0, ++ni);
-                if (ni >= FULL_NAME.length) {
-                    clearInterval(nameTimer);
-                }
-            }, 52 + Math.random() * 18);
-        }, 720);
-
-        // Sub text
-        setTimeout(() => {
-            let si = 0;
-            const subTimer = setInterval(() => {
-                subEl.textContent = SUB_TEXT.slice(0, ++si);
-                if (si >= SUB_TEXT.length) clearInterval(subTimer);
-            }, 22);
-        }, 1700);
-
-        // Exit after bar fills — shorter on mobile
-        const isMobile = window.innerWidth <= 768;
-        setTimeout(exitIntro, isMobile ? 2000 : 3100);
-    }
-
-    function exitIntro() {
-        intro.classList.add('exit');
-        setTimeout(() => intro.remove(), 700);
-    }
-
-    startSequence();
-}
 // ============================================================
 //  COMMAND PALETTE
 // ============================================================
@@ -611,142 +484,61 @@ function initLiveTerminal() {
         help: () => [
             { t:'heading', s:'Available commands:' },
             { t:'info', s:'  help              — show this menu' },
-            { t:'info', s:'  whoami            — who is this guy?' },
-            { t:'info', s:'  neofetch          — system info (the cool way)' },
-            { t:'info', s:'  skills            — full skill dump' },
-            { t:'info', s:'  skills --cloud    — cloud & devops stack' },
-            { t:'info', s:'  skills --networking — networking skills' },
-            { t:'info', s:'  skills --tools    — tools I use daily' },
-            { t:'info', s:'  certifications    — certs and credentials' },
-            { t:'info', s:'  projects          — featured builds' },
-            { t:'info', s:'  experience        — work history' },
-            { t:'info', s:'  education         — degrees & programs' },
+            { t:'info', s:'  whoami            — about me' },
+            { t:'info', s:'  skills            — technical skills' },
+            { t:'info', s:'  skills --cloud    — cloud & devops' },
+            { t:'info', s:'  skills --networking — networking' },
+            { t:'info', s:'  skills --tools    — daily tools' },
+            { t:'info', s:'  certifications    — certs' },
             { t:'info', s:'  contact           — reach me' },
             { t:'info', s:'  ping <host>       — try it' },
-            { t:'info', s:'  uptime            — how long I\'ve been at this' },
-            { t:'info', s:'  man safuvan       — the manual' },
             { t:'info', s:'  clear             — wipe the screen' },
-            { t:'info', s:'  sudo hire safuvan — you know you want to' },
         ],
         whoami: () => [
             { t:'out', s:'Muhammed Safuvan' },
             { t:'info', s:'System Administrator & IT Support Specialist' },
-            { t:'info', s:'Based in London, ON, Canada' },
-            { t:'info', s:'B.Tech ECE (CUSAT) → PGC BISA (Fanshawe)' },
-            { t:'dim', s:'Interests: cinema, geopolitics, photography, space' },
-        ],
-        neofetch: () => [
-            { t:'neofetch', s:'' }
+            { t:'info', s:'London, ON, Canada' },
+            { t:'dim', s:'B.Tech ECE (CUSAT) → PGC BISA (Fanshawe)' },
         ],
         skills: () => [
-            { t:'heading', s:'All Technical Skills:' },
-            { t:'table-row', s:'<span class="col-label">Operating Systems</span> Windows Server, Win 10/11, Ubuntu, macOS' },
-            { t:'table-row', s:'<span class="col-label">Identity & Access</span> Active Directory, Azure AD, M365 Admin' },
+            { t:'table-row', s:'<span class="col-label">OS</span> Windows Server, Win 10/11, Ubuntu, macOS' },
+            { t:'table-row', s:'<span class="col-label">Identity</span> Active Directory, Azure AD, M365 Admin' },
             { t:'table-row', s:'<span class="col-label">Cloud</span> AWS (EC2, S3, IAM, Lambda), Azure, Docker' },
             { t:'table-row', s:'<span class="col-label">Networking</span> TCP/IP, DNS, DHCP, VPN, LAN/Wi-Fi' },
             { t:'table-row', s:'<span class="col-label">Scripting</span> Python, Bash, PowerShell, JavaScript' },
-            { t:'table-row', s:'<span class="col-label">Data & BI</span> SQL, Power BI (DAX), Excel, Pandas' },
+            { t:'table-row', s:'<span class="col-label">Data</span> SQL, Power BI (DAX), Excel, Pandas' },
             { t:'table-row', s:'<span class="col-label">Databases</span> MySQL, PostgreSQL, MongoDB, SQLite' },
             { t:'table-row', s:'<span class="col-label">Tools</span> VS Code, GitHub, JIRA, ServiceNow, Postman' },
-            { t:'dim', s:'Use: skills --cloud, skills --networking, skills --tools' },
+            { t:'dim', s:'Try: skills --cloud, skills --networking, skills --tools' },
         ],
         'skills --cloud': () => [
-            { t:'heading', s:'Cloud & DevOps:' },
             { t:'out', s:'AWS — EC2, S3, IAM, Lambda, CloudWatch' },
-            { t:'out', s:'Azure — Fundamentals, Azure AD, basic VM provisioning' },
-            { t:'out', s:'Docker — containerisation, Dockerfile, docker-compose' },
+            { t:'out', s:'Azure — Azure AD, basic VM provisioning' },
+            { t:'out', s:'Docker — Dockerfile, docker-compose' },
             { t:'out', s:'GitHub Actions — CI/CD pipelines' },
-            { t:'out', s:'Infrastructure monitoring & log analysis' },
         ],
         'skills --networking': () => [
-            { t:'heading', s:'Networking:' },
-            { t:'out', s:'TCP/IP stack — deep understanding of layers' },
-            { t:'out', s:'DNS — record types, resolution, troubleshooting' },
-            { t:'out', s:'DHCP — scopes, reservations, relay agents' },
-            { t:'out', s:'VPN — site-to-site, remote access, split tunnel' },
-            { t:'out', s:'LAN/WLAN — switching, VLANs, wireless config' },
-            { t:'out', s:'Subnetting — CIDR, VLSM, supernetting' },
-            { t:'dim', s:'Check the Subnet Calculator in Projects ↓' },
+            { t:'out', s:'TCP/IP, DNS, DHCP, VPN, LAN/WLAN' },
+            { t:'out', s:'Subnetting — CIDR, VLSM' },
+            { t:'out', s:'Switching, VLANs, wireless config' },
         ],
         'skills --tools': () => [
-            { t:'heading', s:'Daily Tools:' },
             { t:'out', s:'VS Code · GitHub · JIRA · ServiceNow' },
             { t:'out', s:'Postman · Wireshark · PuTTY · WinSCP' },
             { t:'out', s:'PowerShell · Bash · Python REPL' },
             { t:'out', s:'RDP · SSH · Remote Desktop Manager' },
         ],
         certifications: () => [
-            { t:'heading', s:'Certifications:' },
-            { t:'out', s:'✓ CompTIA A+ (Core 1 passed, Core 2 in progress)' },
-            { t:'out', s:'✓ Fanshawe PGC — Business & Information Systems Architecture' },
-            { t:'out', s:'✓ B.Tech ECE — CUSAT, Kochi' },
-            { t:'dim', s:'AWS Cloud Practitioner — next target' },
-        ],
-        projects: () => [
-            { t:'heading', s:'Featured Projects:' },
-            { t:'out', s:'🔒 Safe Surf — Chrome extension that reads T&C so you don\'t have to' },
-            { t:'out', s:'🛰️ Thermal Imaging Drone — built from scratch, Python + thermal sensor' },
-            { t:'out', s:'🔢 Subnet Calculator — live tool embedded in this site' },
-            { t:'dim', s:'Scroll down to Projects section for details ↓' },
-        ],
-        experience: () => [
-            { t:'heading', s:'Work History:' },
-            { t:'table-row', s:'<span class="col-label">Impreza Technologies</span> System Administrator · 2022–2023' },
-            { t:'table-row', s:'<span class="col-label">Osmow\'s</span> Supervisor · 2023–Present' },
-            { t:'table-row', s:'<span class="col-label">Dr. Oetker</span> Machine Operator · 2023' },
-        ],
-        education: () => [
-            { t:'heading', s:'Education:' },
-            { t:'out', s:'🎓 PGC Business & Information Systems Architecture — Fanshawe College (2023–2025)' },
-            { t:'out', s:'🎓 B.Tech Electronics & Communication Engineering — CUSAT (2018–2022)' },
+            { t:'out', s:'CompTIA A+ (Core 1 passed, Core 2 in progress)' },
+            { t:'out', s:'PGC — Business & Information Systems Architecture' },
+            { t:'out', s:'B.Tech ECE — CUSAT, Kochi' },
+            { t:'dim', s:'Next: AWS Cloud Practitioner' },
         ],
         contact: () => [
-            { t:'heading', s:'Reach me:' },
-            { t:'out', s:'📧 muhammedsafuvan1999@gmail.com' },
-            { t:'out', s:'📱 +1 (226) 977-8208' },
-            { t:'out', s:'📍 London, ON, Canada' },
-            { t:'out', s:'🔗 linkedin.com/in/muhammed-safuvan-b81312189' },
-        ],
-        uptime: () => {
-            const born = new Date(1999, 2, 8);
-            const now = new Date();
-            const days = Math.floor((now - born) / 86400000);
-            const years = Math.floor(days / 365.25);
-            return [
-                { t:'out', s:`up ${days} days (${years} years)` },
-                { t:'info', s:`load average: coffee 3.8, curiosity 4.2, ambition 5.0` },
-                { t:'dim', s:`last reboot: moved to Canada, 2023` },
-            ];
-        },
-        'man safuvan': () => [
-            { t:'heading', s:'SAFUVAN(1)                   User Manual                   SAFUVAN(1)' },
-            { t:'info', s:'' },
-            { t:'info', s:'NAME' },
-            { t:'out', s:'    safuvan — sysadmin, drone builder, cinema nerd' },
-            { t:'info', s:'' },
-            { t:'info', s:'SYNOPSIS' },
-            { t:'out', s:'    safuvan [--hire] [--coffee] [--talk-interstellar]' },
-            { t:'info', s:'' },
-            { t:'info', s:'DESCRIPTION' },
-            { t:'out', s:'    Indian-born, Canada-based IT professional who built' },
-            { t:'out', s:'    a thermal imaging drone from scratch and now wants' },
-            { t:'out', s:'    to fix your Active Directory problems.' },
-            { t:'info', s:'' },
-            { t:'info', s:'OPTIONS' },
-            { t:'out', s:'    --hire          Strongly recommended' },
-            { t:'out', s:'    --coffee        Always accepted' },
-            { t:'out', s:'    --talk-interstellar  Will not shut up' },
-            { t:'info', s:'' },
-            { t:'info', s:'SEE ALSO' },
-            { t:'out', s:'    resume(1), linkedin(1), email(1)' },
-        ],
-        'sudo hire safuvan': () => [
-            { t:'out', s:'[sudo] verifying intent...' },
-            { t:'out', s:'✓ Excellent decision.' },
-            { t:'out', s:'✓ Deploying Safuvan to your IT team...' },
-            { t:'out', s:'✓ Installation complete. Productivity increased by ∞%.' },
-            { t:'info', s:'' },
-            { t:'info', s:'📧 muhammedsafuvan1999@gmail.com to make it official.' },
+            { t:'out', s:'muhammedsafuvan1999@gmail.com' },
+            { t:'out', s:'+1 (226) 977-8208' },
+            { t:'out', s:'London, ON, Canada' },
+            { t:'out', s:'linkedin.com/in/muhammed-safuvan-b81312189' },
         ],
         clear: () => 'CLEAR',
     };
@@ -768,52 +560,13 @@ function initLiveTerminal() {
     function addLines(lines) {
         lines.forEach((l, i) => {
             setTimeout(() => {
-                if (l.t === 'neofetch') {
-                    addNeofetch();
-                } else {
-                    const div = document.createElement('div');
-                    div.className = 'term-line ' + l.t;
-                    div.innerHTML = l.s;
-                    body.appendChild(div);
-                }
+                const div = document.createElement('div');
+                div.className = 'term-line ' + l.t;
+                div.innerHTML = l.s;
+                body.appendChild(div);
                 body.scrollTop = body.scrollHeight;
             }, i * 35);
         });
-    }
-
-    function addNeofetch() {
-        const container = document.createElement('div');
-        container.className = 'neofetch-box';
-        const ascii = `   _____ 
-  / ____|
- | (___  
-  \\___ \\ 
-  ____) |
- |_____/ `;
-        const born = new Date(1999, 2, 8);
-        const days = Math.floor((new Date() - born) / 86400000);
-        container.innerHTML = `
-            <div class="neofetch-ascii">${ascii}</div>
-            <div class="neofetch-info">
-                <span class="nf-label">safuvan</span><span class="nf-sep">@</span>portfolio<br>
-                ──────────────────<br>
-                <span class="nf-label">OS</span><span class="nf-sep">:</span> Ambition/2.0 LTS<br>
-                <span class="nf-label">Host</span><span class="nf-sep">:</span> London, ON, Canada<br>
-                <span class="nf-label">Kernel</span><span class="nf-sep">:</span> B.Tech ECE + PGC BISA<br>
-                <span class="nf-label">Uptime</span><span class="nf-sep">:</span> ${days} days<br>
-                <span class="nf-label">Shell</span><span class="nf-sep">:</span> bash / powershell / python<br>
-                <span class="nf-label">Resolution</span><span class="nf-sep">:</span> ${window.innerWidth}x${window.innerHeight}<br>
-                <span class="nf-label">WM</span><span class="nf-sep">:</span> Active Directory<br>
-                <span class="nf-label">Terminal</span><span class="nf-sep">:</span> VS Code + PuTTY<br>
-                <span class="nf-label">CPU</span><span class="nf-sep">:</span> Caffeinated (3.8 GHz)<br>
-                <span class="nf-label">Memory</span><span class="nf-sep">:</span> 42 tabs / ∞<br>
-                <br>
-                <div class="neofetch-bar">
-                    <span style="background:#f87171"></span><span style="background:#fb923c"></span><span style="background:#fbbf24"></span><span style="background:#4ade80"></span><span style="background:#60a5fa"></span><span style="background:#a78bfa"></span><span style="background:#f472b6"></span><span style="background:#e5e7eb"></span>
-                </div>
-            </div>`;
-        body.appendChild(container);
-        body.scrollTop = body.scrollHeight;
     }
 
     function execute(raw) {
@@ -868,7 +621,7 @@ function initLiveTerminal() {
     const termObs = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting) {
             termObs.disconnect();
-            setTimeout(() => execute('neofetch'), 400);
+            setTimeout(() => execute('skills'), 400);
         }
     }, { threshold: 0.3 });
     const termSection = document.getElementById('liveTerminal');
@@ -930,19 +683,17 @@ function initSubnetCalc() {
 //  BOOT
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.skill-category,.timeline-item,.project-card,.education-card,.contact-item').forEach((el, idx) => {
+    document.querySelectorAll('.skill-card,.timeline-item,.project-card,.education-card,.contact-item').forEach((el, idx) => {
         el.style.opacity='0'; el.style.transform='translateY(30px)';
         el.style.transition=`opacity 0.6s ease ${Math.min(idx*35,180)}ms, transform 0.6s ease ${Math.min(idx*35,180)}ms`;
         observer.observe(el);
     });
-    document.querySelectorAll('.project-card,.skill-category,.education-card,.timeline-content').forEach(attachTilt);
-    initIntro();
+    document.querySelectorAll('.project-card,.skill-card,.education-card,.timeline-content').forEach(attachTilt);
     initCommandPalette();
     initPortraitParallax();
     initGlitch();
     initScramble();
     initParticles();
-    initTerminal();
     initMatrixEmail();
     initMuteToggle();
     initButtonSounds();
@@ -951,12 +702,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── NEW FEATURES ──
     // initParticleNetwork(); // removed
     initScrollTransitions();
-    initSkillBars();
     initClock();
     initLenis();
     initJourney();
     initHeroRotator();
-    initLiveTerminal();
     initSubnetCalc();
 });
 
@@ -966,7 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initScrollReveal() {
     // Tag all section children for reveal
     const targets = document.querySelectorAll(
-        '.about-text p, .skill-category, .timeline-item, .project-card, ' +
+        '.about-text p, .skill-card, .timeline-item, .project-card, ' +
         '.education-card, .contact-item, .contact-cta, .section-title, ' +
         '.terminal-block, .timeline-content'
     );
@@ -1170,7 +919,7 @@ function initScrollTransitions() {
         ['.section-title',    'translateY(0) clipPath',  ''],
         ['.section-label',    'translateX(-24px)',         'opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)'],
         ['.about-text p',     'translateY(36px)',          'opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1)'],
-        ['.skill-category',   'translateY(44px) scale(0.96)', 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)'],
+        ['.skill-card',        'translateY(44px) scale(0.96)', 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)'],
         ['.project-card',     'translateY(60px) rotate(-0.8deg)', 'opacity 0.65s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1)'],
         ['.education-card',   'translateY(48px) scale(0.97)', 'opacity 0.65s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1)'],
         ['.contact-item',     'translateY(32px)',          'opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)'],
@@ -1261,70 +1010,7 @@ function initScrollTransitions() {
 
 
 
-// ============================================================
-
-//  FEATURE 04 — ANIMATED SKILL BARS
-// ============================================================
-function initSkillBars() {
-    // Skill proficiency map — honest, defensible levels
-    const skillLevels = {
-        'Python': 78, 'JavaScript': 72, 'SQL': 75, 'HTML': 90, 'CSS': 85,
-        'AWS (EC2, S3, IAM, Lambda)': 65, 'GitHub Actions': 60, 'Azure Fundamentals': 60, 'Docker': 55,
-        'Microsoft 365 Admin Center': 82, 'Active Directory': 80, 'Azure AD': 72,
-        'Excel (Pivot Tables, Power Query)': 78, 'Power BI (DAX)': 65, 'Tableau': 58, 'Pandas, NumPy, Matplotlib': 65,
-        'Windows 10/11': 88, 'Linux (Ubuntu CLI)': 75, 'macOS Support': 70, 'TCP/IP, DHCP, DNS': 78, 'VPN Setup': 72,
-        'MySQL': 68, 'PostgreSQL': 65, 'MongoDB': 58, 'SQLite': 65,
-        'VS Code': 88, 'GitHub': 80, 'JIRA': 70, 'ServiceNow': 65, 'Postman': 68, 'Anaconda': 62,
-    };
-
-    const categories = document.querySelectorAll('.skill-category');
-
-    categories.forEach(cat => {
-        const tags = cat.querySelectorAll('.skill-tag');
-        if (!tags.length) return;
-
-        // Pick the top 3 skills per category to show bars for
-        const barWrap = document.createElement('div');
-        barWrap.className = 'skill-bar-wrap';
-
-        let added = 0;
-        tags.forEach(tag => {
-            if (added >= 3) return;
-            const name = tag.textContent.trim();
-            const pct = skillLevels[name];
-            if (!pct) return;
-
-            const item = document.createElement('div');
-            item.className = 'skill-bar-item';
-            item.innerHTML = `
-                <span class="skill-bar-label">${name.length > 18 ? name.split(' ')[0] : name}</span>
-                <div class="skill-bar-track">
-                    <div class="skill-bar-fill" data-pct="${pct}"></div>
-                </div>`;
-            barWrap.appendChild(item);
-            added++;
-        });
-
-        if (added > 0) cat.appendChild(barWrap);
-    });
-
-    // Animate bars on scroll into view
-    const barObs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const fills = entry.target.querySelectorAll('.skill-bar-fill');
-                fills.forEach((fill, i) => {
-                    setTimeout(() => {
-                        fill.style.width = fill.dataset.pct + '%';
-                    }, i * 120);
-                });
-                barObs.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.25 });
-
-    document.querySelectorAll('.skill-category').forEach(cat => barObs.observe(cat));
-}
+// [REMOVED] Animated skill bars — terminal-only approach
 
 
 // ============================================================

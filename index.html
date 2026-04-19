@@ -22,28 +22,6 @@
     <div class="cursor-ring" id="cursorRing"></div>
     <div class="spotlight" aria-hidden="true"></div>
     <div class="portrait-bg" aria-hidden="true"></div>
-    <div class="intro" id="intro" aria-hidden="true">
-        <div class="intro-grid"></div>
-        <div class="intro-vline intro-vl1"></div>
-        <div class="intro-vline intro-vl2"></div>
-        <div class="intro-center">
-            <div class="intro-eyebrow" id="introEyebrow"></div>
-            <div class="intro-name-row">
-                <div class="intro-hline"></div>
-                <h1 class="intro-name" id="introName"></h1>
-                <div class="intro-hline"></div>
-            </div>
-            <div class="intro-sub" id="introSub"></div>
-            <div class="intro-bar-wrap">
-                <div class="intro-bar" id="introBar"></div>
-            </div>
-        </div>
-        <div class="intro-corner tl"></div>
-        <div class="intro-corner tr"></div>
-        <div class="intro-corner bl"></div>
-        <div class="intro-corner br"></div>
-        <div class="intro-scanline"></div>
-    </div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -160,7 +138,7 @@
                         <span class="dna-sub">on video — the goal</span>
                     </div>
                     <div class="dna-item">
-                        <span class="dna-icon">⚽</span>
+                        <span class="dna-icon"><img src="man united.png" alt="Manchester United" class="manutd-logo"></span>
                         <span class="dna-label">Man United</span>
                         <span class="dna-sub">pain is loyalty</span>
                     </div>
@@ -238,38 +216,283 @@
     </div>
 
 
-    <!-- Skills Section — Interactive Terminal -->
+    <!-- Skills Section -->
     <section id="skills" class="skills">
         <div class="container">
             <span class="section-label">// skills</span>
             <h2 class="section-title">Technical Skills</h2>
-            <p class="terminal-intro">This isn't a list. Type a command below — or click one to try it.</p>
 
-            <div class="live-terminal" id="liveTerminal">
-                <div class="terminal-header">
-                    <span class="t-dot t-red"></span>
-                    <span class="t-dot t-yellow"></span>
-                    <span class="t-dot t-green"></span>
-                    <span class="t-title">safuvan@portfolio ~ $</span>
-                </div>
-                <div class="terminal-body" id="liveTermBody"></div>
-                <div class="terminal-input-row">
-                    <span class="t-prompt-live">$&nbsp;</span>
-                    <input type="text" id="termInput" class="terminal-input" placeholder="try: help, skills, whoami, neofetch, projects, ping..." autocomplete="off" spellcheck="false" />
+            <div class="skills-section-group">
+                <p class="skills-group-label">Sysadmin & IT</p>
+                <div class="skills-grid">
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Operating Systems</h3>
+                        <div class="skill-tags">
+                            <span class="stag">Windows Server 2016/2019/2022</span>
+                            <span class="stag">Windows 10/11</span>
+                            <span class="stag">Ubuntu</span>
+                            <span class="stag">Debian</span>
+                            <span class="stag">CentOS</span>
+                            <span class="stag">macOS</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Identity & M365</h3>
+                        <div class="skill-tags">
+                            <span class="stag">Active Directory</span>
+                            <span class="stag">Group Policy (GPO)</span>
+                            <span class="stag">Azure AD / Entra ID</span>
+                            <span class="stag">M365 Admin Center</span>
+                            <span class="stag">Exchange Online</span>
+                            <span class="stag">SharePoint Online</span>
+                            <span class="stag">Teams Admin</span>
+                            <span class="stag">OneDrive</span>
+                            <span class="stag">Intune MDM</span>
+                            <span class="stag">MFA / Conditional Access</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="6"/><rect x="16" y="16" width="6" height="6"/><rect x="2" y="16" width="6" height="6"/><path d="M12 8v4M8 16H5a1 1 0 0 1-1-1v-1M19 16v-1a1 1 0 0 0-1-1h-3"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Networking</h3>
+                        <div class="skill-tags">
+                            <span class="stag">TCP/IP</span>
+                            <span class="stag">DNS</span>
+                            <span class="stag">DHCP</span>
+                            <span class="stag">VPN (IPsec / SSL)</span>
+                            <span class="stag">LAN / WLAN</span>
+                            <span class="stag">Subnetting / CIDR</span>
+                            <span class="stag">VLANs</span>
+                            <span class="stag">NAT / Firewall rules</span>
+                            <span class="stag">Wireshark / Packet analysis</span>
+                            <span class="stag">pfSense</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Security & Endpoint</h3>
+                        <div class="skill-tags">
+                            <span class="stag">Endpoint hardening</span>
+                            <span class="stag">Patch management</span>
+                            <span class="stag">Windows Defender / AV</span>
+                            <span class="stag">Access control (RBAC)</span>
+                            <span class="stag">Event log analysis</span>
+                            <span class="stag">Incident triage</span>
+                            <span class="stag">Backup & recovery</span>
+                            <span class="stag">Encryption (BitLocker)</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Server Administration</h3>
+                        <div class="skill-tags">
+                            <span class="stag">File & Print Services</span>
+                            <span class="stag">IIS / Web server</span>
+                            <span class="stag">systemd services</span>
+                            <span class="stag">Cron jobs</span>
+                            <span class="stag">Log management</span>
+                            <span class="stag">VM provisioning</span>
+                            <span class="stag">Hyper-V / VMware</span>
+                            <span class="stag">Remote Desktop (RDS)</span>
+                            <span class="stag">SSH / SCP / WinSCP</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Scripting & Automation</h3>
+                        <div class="skill-tags">
+                            <span class="stag">PowerShell</span>
+                            <span class="stag">Bash</span>
+                            <span class="stag">Python</span>
+                            <span class="stag">Task Scheduler</span>
+                            <span class="stag">Cron</span>
+                            <span class="stag">AD bulk user provisioning</span>
+                            <span class="stag">Log parsing scripts</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Cloud & DevOps</h3>
+                        <div class="skill-tags">
+                            <span class="stag">AWS EC2</span>
+                            <span class="stag">AWS S3</span>
+                            <span class="stag">AWS IAM</span>
+                            <span class="stag">AWS Lambda</span>
+                            <span class="stag">AWS CloudWatch</span>
+                            <span class="stag">Azure VMs</span>
+                            <span class="stag">Azure AD</span>
+                            <span class="stag">Docker</span>
+                            <span class="stag">GitHub Actions</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">IT Support & Tools</h3>
+                        <div class="skill-tags">
+                            <span class="stag">Ticketing (JIRA / ServiceNow)</span>
+                            <span class="stag">Remote support (RDP / AnyDesk)</span>
+                            <span class="stag">Hardware diagnosis & repair</span>
+                            <span class="stag">Printer / peripheral setup</span>
+                            <span class="stag">PuTTY</span>
+                            <span class="stag">Postman</span>
+                            <span class="stag">VS Code</span>
+                            <span class="stag">GitHub</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Data & BI</h3>
+                        <div class="skill-tags">
+                            <span class="stag">Power BI</span>
+                            <span class="stag">MySQL</span>
+                            <span class="stag">PostgreSQL</span>
+                            <span class="stag">MongoDB</span>
+                            <span class="stag">SQLite</span>
+                            <span class="stag">Pandas</span>
+                            <span class="stag">NumPy</span>
+                            <span class="stag">Advanced Excel</span>
+                            <span class="stag">DAX</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="terminal-suggestions" id="termSuggestions">
-                <button class="term-sug" data-cmd="help">help</button>
-                <button class="term-sug" data-cmd="neofetch">neofetch</button>
-                <button class="term-sug" data-cmd="skills --cloud">skills --cloud</button>
-                <button class="term-sug" data-cmd="skills --networking">skills --networking</button>
-                <button class="term-sug" data-cmd="certifications">certifications</button>
-                <button class="term-sug" data-cmd="whoami">whoami</button>
-                <button class="term-sug" data-cmd="projects">projects</button>
-                <button class="term-sug" data-cmd="ping google.com">ping google.com</button>
-                <button class="term-sug" data-cmd="uptime">uptime</button>
-                <button class="term-sug" data-cmd="man safuvan">man safuvan</button>
+            <div class="skills-section-group">
+                <p class="skills-group-label">Electronics & Engineering</p>
+                <div class="skills-grid">
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Embedded Systems</h3>
+                        <div class="skill-tags">
+                            <span class="stag">Arduino</span>
+                            <span class="stag">Raspberry Pi</span>
+                            <span class="stag">STM32 microcontrollers</span>
+                            <span class="stag">GPIO interfacing</span>
+                            <span class="stag">I2C / SPI / UART</span>
+                            <span class="stag">PWM control</span>
+                            <span class="stag">Sensor integration</span>
+                            <span class="stag">Flight controllers (drone)</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Signal Processing</h3>
+                        <div class="skill-tags">
+                            <span class="stag">DSP fundamentals</span>
+                            <span class="stag">Fourier transforms (DFT/FFT)</span>
+                            <span class="stag">Digital filters (FIR/IIR)</span>
+                            <span class="stag">AM / FM / PM modulation</span>
+                            <span class="stag">OFDM basics</span>
+                            <span class="stag">Sampling & quantisation</span>
+                            <span class="stag">MATLAB / Simulink</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Circuit & Hardware</h3>
+                        <div class="skill-tags">
+                            <span class="stag">Circuit design & analysis</span>
+                            <span class="stag">Op-amps</span>
+                            <span class="stag">Power electronics</span>
+                            <span class="stag">PCB layout basics</span>
+                            <span class="stag">Oscilloscope / multimeter</span>
+                            <span class="stag">Soldering & assembly</span>
+                            <span class="stag">ESC & brushless motor wiring</span>
+                            <span class="stag">Proteus / LTspice simulation</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-card">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3h-8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2z"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Image & Computer Vision</h3>
+                        <div class="skill-tags">
+                            <span class="stag">OpenCV</span>
+                            <span class="stag">Thermal image processing</span>
+                            <span class="stag">Heat signature detection</span>
+                            <span class="stag">Image thresholding</span>
+                            <span class="stag">Cluster detection</span>
+                            <span class="stag">NumPy array processing</span>
+                            <span class="stag">Python (PIL / OpenCV)</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="skills-section-group">
+                <p class="skills-group-label">Certifications</p>
+                <div class="skills-grid skills-grid-cert">
+
+                    <div class="skill-card skill-card-cert">
+                        <div class="skill-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                        </div>
+                        <h3 class="skill-card-title">Certifications</h3>
+                        <div class="cert-list">
+                            <div class="cert-item">
+                                <span class="cert-badge cert-done">✓</span>
+                                <span class="cert-name">CompTIA A+ Core 1</span>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-badge cert-progress">→</span>
+                                <span class="cert-name">CompTIA A+ Core 2 <em>in progress</em></span>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-badge cert-next">◦</span>
+                                <span class="cert-name">AWS Cloud Practitioner <em>next</em></span>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-badge cert-done">✓</span>
+                                <span class="cert-name">PGC — Business & Information Systems Architecture</span>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-badge cert-done">✓</span>
+                                <span class="cert-name">B.Tech ECE — CUSAT</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </section>
@@ -509,6 +732,11 @@
             <p class="footer-note">Kochi → London, ON · Still building.</p>
         </div>
     </footer>
+
+    <!-- Resume FAB -->
+    <a href="assets/Muhammed-Safuvan-resume.pdf" class="resume-fab" target="_blank" rel="noopener noreferrer" aria-label="Download résumé" title="Download Résumé">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+    </a>
 
     <!-- Scroll To Top Button -->
     <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
