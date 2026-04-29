@@ -529,7 +529,7 @@ function initLiveTerminal() {
             { t:'out', s:'RDP · SSH · Remote Desktop Manager' },
         ],
         certifications: () => [
-            { t:'out', s:'CompTIA A+ (Core 1 passed, Core 2 in progress)' },
+            { t:'out', s:'CompTIA A+ — Core 1 & Core 2 (Certified)' },
             { t:'out', s:'PGC — Business & Information Systems Architecture' },
             { t:'out', s:'B.Tech ECE — CUSAT, Kochi' },
             { t:'dim', s:'Next: AWS Cloud Practitioner' },
